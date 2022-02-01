@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/JalalHasan-22/Movies-Library#readme",
   "dependencies": {
+    "axios": "^0.25.0",
+    "dotenv": "^15.0.0",
     "express": "^4.17.2"
   }
 }
