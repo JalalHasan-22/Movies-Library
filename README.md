@@ -19,3 +19,6 @@
 ## Project Features
 
 So far this project has no features 🙄, but stay tuned as we will implement artificial intellegence in our app in the upcoming days 🤥.
+
+### Task12 update
+Other than the two routes required in this task (Search & trending), I've added two other routes (popular & top rated), you can test those routes be adding ("/popular") or ("/toprated") to your request.
