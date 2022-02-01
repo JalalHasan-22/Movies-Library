@@ -18,7 +18,7 @@ function Movie (title, posterPath, overview) {
     this.overview = overview;
 }
 
-function Trending (id, title, realeaseDate, posterPath, overview) {
+function APIMovie (id, title, realeaseDate, posterPath, overview) {
     this.id = id;
     this.title = title;
     this.realease_date = realeaseDate;
@@ -45,8 +45,7 @@ const trendingHandler = (req,res) => {
     axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${APIKEY}&language=en-US`)
     .then(response =>{
         response.data.results.forEach(movie => {
-            console.log(movie);
-            const trendingMovie = new Trending(movie.id, movie.title, movie.realease_date, movie.poster_path, movie.overview)
+            const trendingMovie = new APIMovie(movie.id, movie.title, movie.realease_date, movie.poster_path, movie.overview)
             results.push(trendingMovie)
         })
         return res.status(200).json(results)
@@ -66,11 +65,32 @@ const searchHandler = (req, res) => {
     .catch(error => errorHandler(error, req, res))   
 }
 
-const reviewsHandler = (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/review/{review_id}?api_key=${APIKEY}`)
-    .then(response => console.log(response.data))
+const popularHandler = (req, res) => {
+    const movies = [];
+    axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKEY}&language=en-US&page=1`)
+    .then(result => {
+        result.data.results.forEach(mov => {
+             const popularMovie = new APIMovie(mov.id, mov.title, mov.realease_date, mov.poster_path, mov.overview)
+             movies.push(popularMovie)
+        })
+        return res.status(200).json(movies)
+    }
+    )
+    .catch(error => errorHandler(error, req, res))
 }
 
+const topRatedHandler = (req, res) => {
+    const movies = [];
+    axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${APIKEY}&language=en-US&page=1`)
+    .then(response => {
+        response.data.results.forEach(mov => {
+            const topRatedMovie = new APIMovie(mov.id, mov.title, mov.realease_date, mov.poster_path, mov.overview);
+            movies.push(topRatedMovie)
+        })
+        return res.status(200).json(movies)
+    })
+    .catch(error => errorHandler(error, req, res))
+}
 
 const errorHandler  = (error, req, res) => {
     const err = {
@@ -88,8 +108,9 @@ app.get("/trending", trendingHandler)
 
 app.get("/search", searchHandler)
 
+app.get("/popular", popularHandler)
 
-app.get("/reviews", reviewsHandler)
+app.get("/toprated", topRatedHandler)
 
 app.listen(3000, () => {
     console.log(
