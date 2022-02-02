@@ -18,10 +18,10 @@ function Movie (title, posterPath, overview) {
     this.overview = overview;
 }
 
-function APIMovie (id, title, realeaseDate, posterPath, overview) {
+function APIMovie (id, title, releaseDate, posterPath, overview) {
     this.id = id;
     this.title = title;
-    this.realease_date = realeaseDate;
+    this.release_date = releaseDate;
     this.poster_path = posterPath;
     this.overview = overview
 }
@@ -41,41 +41,33 @@ const APIKEY = process.env.APIKEY
 
 
 const trendingHandler = (req,res) => {
-    const results = [];
     axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${APIKEY}&language=en-US`)
     .then(response =>{
-        response.data.results.forEach(movie => {
-            const trendingMovie = new APIMovie(movie.id, movie.title, movie.realease_date, movie.poster_path, movie.overview)
-            results.push(trendingMovie)
-        })
-        return res.status(200).json(results)
+        return res.status(200).json(response.data.results.map(movie => {
+            return new APIMovie(movie.id, movie.title, movie.release_date, movie.poster_path, movie.overview)
+        }))
     }
     )
-    .catch(err => errorHandler(error, req, res))
+    .catch(error => errorHandler(error, req, res))
 }
 
 
 const searchHandler = (req, res) => {
     const query = req.query.search
-    const movies = []
     axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=en-US&query=${query}&page=2`)
-    .then(response => {response.data.results.forEach(result => movies.push(result))
-    return res.status(200).json(movies)
+    .then(response => {
+        return res.status(200).json(response.data.results)
     })
     .catch(error => errorHandler(error, req, res))   
 }
 
 const popularHandler = (req, res) => {
-    const movies = [];
     axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKEY}&language=en-US&page=1`)
     .then(result => {
-        result.data.results.forEach(mov => {
-             const popularMovie = new APIMovie(mov.id, mov.title, mov.realease_date, mov.poster_path, mov.overview)
-             movies.push(popularMovie)
+        return res.status(200).json(result.data.results.map(mov => {
+            return new APIMovie(mov.title, mov.release_date, mov.poster_path, mov.overview)
+        }))
         })
-        return res.status(200).json(movies)
-    }
-    )
     .catch(error => errorHandler(error, req, res))
 }
 
@@ -84,7 +76,7 @@ const topRatedHandler = (req, res) => {
     axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${APIKEY}&language=en-US&page=1`)
     .then(response => {
         response.data.results.forEach(mov => {
-            const topRatedMovie = new APIMovie(mov.id, mov.title, mov.realease_date, mov.poster_path, mov.overview);
+            const topRatedMovie = new APIMovie(mov.id, mov.title, mov.release_date, mov.poster_path, mov.overview);
             movies.push(topRatedMovie)
         })
         return res.status(200).json(movies)
