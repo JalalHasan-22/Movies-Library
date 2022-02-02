@@ -24,6 +24,9 @@
 4. get results for popular movies by sending a git request to endpoint "/popular".
 5. Saving a favorit movie to the database by sending a post request to endpoint "/addMovie".
 6. retreiving from favorite movies database by sending a get request to endpoint "/getMovie".
+7. updating a specific movie in the database by sending a put request to endpoint ("/udpateFavMovie/id").
+8. deleting a movie from the database by sending a delete request to endpoint ("/delete/id").
+9. get a single movie from the database by sending a get request with the movie id to the endpoint ("/getFavMovie").
 
 
 ## Task12) update
@@ -42,3 +45,8 @@ Other than the two routes required in this task (Search & trending), I've added 
 
 ### Task13) update
 today was my first time dealing with databases, I was really looking forward to this moment, I imagened it will be more complex but turned out it is not. I found it was easy and really fun to deal with.
+
+### Task14) update
+I'm really starting to like dealing with a database and manipulating the entries inside of it, can't wait to mix this knowledge with a frontend framework.
+
+this task took less than one hour.
