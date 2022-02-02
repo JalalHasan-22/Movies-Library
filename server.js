@@ -7,9 +7,17 @@ const app = express();
 const axios = require("axios");
 const dotenv = require("dotenv");
 const { response } = require('express');
-
+const pg = require("pg");
 
 dotenv.config();
+
+const DATABASE_URL = process.env.DATABASE_URL;
+const client = new pg.Client(DATABASE_URL);
+app.use(express.json());
+
+
+
+const port = process.env.port;
 
 
 function Movie (title, posterPath, overview) {
@@ -37,7 +45,7 @@ const favoriteHandler = (req, res) => {
     res.status(200).send("Welcome to Favorite Page")
 }
 
-const APIKEY = process.env.APIKEY
+const APIKEY = process.env.APIKEY;
 
 
 const trendingHandler = (req,res) => {
@@ -64,6 +72,7 @@ const searchHandler = (req, res) => {
 const popularHandler = (req, res) => {
     axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKEY}&language=en-US&page=1`)
     .then(result => {
+
         return res.status(200).json(result.data.results.map(mov => {
             return new APIMovie(mov.title, mov.release_date, mov.poster_path, mov.overview)
         }))
@@ -81,6 +90,34 @@ const topRatedHandler = (req, res) => {
     })
     .catch(error => errorHandler(error, req, res))
 }
+
+
+////////////// TASK 13
+const addMovieHandler = (req, res) => {
+    const movie = req.body;
+    console.log(movie);
+    const sql = `INSERT INTO favMOVIES(title, releaseDate, posterPath, overview) VALUES($1, $2, $3, $4)`;
+    const values = [movie.title, movie.releaseDate, movie.posterPath, movie.overview];
+    client.query(sql, values).then(data => {
+        return res.status(201).json(data.rows)
+    })
+    .catch(error => errorHandler(error, req, res))
+}
+
+const getMovieHandler = (req, res) => {
+    const sql = `SELECT * FROM favMovies`;
+    client.query(sql).then(data => {
+        return res.status(200).json(data.rows);
+    }).catch(error => {
+        errorHandler(error, req,res);
+    })
+}
+
+
+app.post("/addMovie", addMovieHandler);
+
+app.get("/getMovie", getMovieHandler)
+
 
 const errorHandler  = (error, req, res) => {
     const err = {
@@ -102,8 +139,11 @@ app.get("/popular", popularHandler)
 
 app.get("/toprated", topRatedHandler)
 
-app.listen(3000, () => {
-    console.log(
-        "Listening on port 3000"
-    );
+
+client.connect().then(() => {
+    app.listen(port, () => {
+        console.log(
+            `Listening on port ${port}`
+        );
+    })
 })
