@@ -22,21 +22,22 @@
 2. search for all trending movies: send a git request to endpoint "/trending".
 3. get top rated movies by sending a git request to endpoint "/toprated".
 4. get results for popular movies by sending a git request to endpoint "/popular".
+5. Saving a favorit movie to a database 
 
 
-## Task12 update
+## Task12) update
 Other than the two routes required in this task (Search & trending), I've added two other routes (popular & top rated), you can test those routes be adding ("/popular") or ("/toprated") to your request.
 
-#### What I have learned so far ?
+#### Task12) What I have learned so far ?
 this task was so interesting for me as this is my very first time dealing wih the backend and sending http requests! 😁
 it's a little odd for me to be honest, as I am always trying to visualize any application or project I have but still intresting and opens my mind for new ideas and areas to improve.
 
-#### How long did it take ?
+#### Task12) How long did it take ?
 it took around one hour for the task and an extra hour just exploring the new things.
-=======
+
 ### Task12 update
 Other than the two routes required in this task (Search & trending), I've added two other routes (popular & top rated), you can test those routes be adding ("/popular") or ("/toprated") to your request.
 
 
-### Task13 update
-I am really sorry for not writing a good documentation, once this situations passes I promise I'll take care of it, it's just that currently it's 3:30 am and I can barely see 🥱
+### Task13) update
+today was my first time dealing with databases, I was really looking forward to this moment, I imagened it will be more complex but turned out it is not. I found it was easy and really fun to deal with.
