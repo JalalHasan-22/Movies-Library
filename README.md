@@ -22,7 +22,8 @@
 2. search for all trending movies: send a git request to endpoint "/trending".
 3. get top rated movies by sending a git request to endpoint "/toprated".
 4. get results for popular movies by sending a git request to endpoint "/popular".
-5. Saving a favorit movie to a database 
+5. Saving a favorit movie to the database by sending a post request to endpoint "/addMovie".
+6. retreiving from favorite movies database by sending a get request to endpoint "/getMovie".
 
 
 ## Task12) update
