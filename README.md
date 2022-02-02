@@ -23,6 +23,7 @@
 3. get top rated movies by sending a git request to endpoint "/toprated".
 4. get results for popular movies by sending a git request to endpoint "/popular".
 
+
 ## Task12 update
 Other than the two routes required in this task (Search & trending), I've added two other routes (popular & top rated), you can test those routes be adding ("/popular") or ("/toprated") to your request.
 
@@ -32,3 +33,10 @@ it's a little odd for me to be honest, as I am always trying to visualize any ap
 
 #### How long did it take ?
 it took around one hour for the task and an extra hour just exploring the new things.
+=======
+### Task12 update
+Other than the two routes required in this task (Search & trending), I've added two other routes (popular & top rated), you can test those routes be adding ("/popular") or ("/toprated") to your request.
+
+
+### Task13 update
+I am really sorry for not writing a good documentation, once this situations passes I promise I'll take care of it, it's just that currently it's 3:30 am and I can barely see 🥱
