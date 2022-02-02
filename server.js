@@ -72,14 +72,12 @@ const popularHandler = (req, res) => {
 }
 
 const topRatedHandler = (req, res) => {
-    const movies = [];
     axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${APIKEY}&language=en-US&page=1`)
     .then(response => {
-        response.data.results.forEach(mov => {
-            const topRatedMovie = new APIMovie(mov.id, mov.title, mov.release_date, mov.poster_path, mov.overview);
-            movies.push(topRatedMovie)
-        })
-        return res.status(200).json(movies)
+        return res.status(200).json(response.data.results.map(mov => {
+            return new APIMovie(mov.id, mov.title, mov.release_date, mov.poster_path, mov.overview);
+           
+        }))
     })
     .catch(error => errorHandler(error, req, res))
 }
