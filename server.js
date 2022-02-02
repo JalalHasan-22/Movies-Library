@@ -106,6 +106,7 @@ const addMovieHandler = (req, res) => {
 
 const getMovieHandler = (req, res) => {
     const sql = `SELECT * FROM favMovies`;
+
     client.query(sql).then(data => {
         return res.status(200).json(data.rows);
     }).catch(error => {
