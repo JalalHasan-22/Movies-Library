@@ -20,7 +20,7 @@ const client = new pg.Client({
     ssl: { rejectUnauthorized: false }
 });
 
-const port = process.env.port;
+const PORT = process.env.PORT;
 
 
 function Movie (title, posterPath, overview) {
@@ -182,9 +182,9 @@ app.get("/toprated", topRatedHandler)
 
 
 client.connect().then(() => {
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
         console.log(
-            `Listening on port ${port}`
+            `Listening on port ${PORT}`
         );
     })
 })
