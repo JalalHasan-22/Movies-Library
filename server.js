@@ -182,7 +182,7 @@ app.get("/toprated", topRatedHandler)
 
 
 client.connect().then(() => {
-    app.listen(port, () => {
+    app.listen(3000, () => {
         console.log(
             `Listening on port ${port}`
         );
