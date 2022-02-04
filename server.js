@@ -12,10 +12,13 @@ const pg = require("pg");
 dotenv.config();
 
 const DATABASE_URL = process.env.DATABASE_URL;
-const client = new pg.Client(DATABASE_URL);
-app.use(express.json());
+// const client = new pg.Client(DATABASE_URL);
+// app.use(express.json());
 
-
+const client = new pg.Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
 
 const port = process.env.port;
 
