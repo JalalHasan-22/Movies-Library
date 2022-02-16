@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS fav (
     releasedate VARCHAR(250),
     posterpath VARCHAR(250),
     overview VARCHAR(1000),
-    comments VARCHAR(250)
+    comment VARCHAR(250)
 )
