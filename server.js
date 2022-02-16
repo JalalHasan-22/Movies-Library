@@ -173,9 +173,10 @@ const udpateFavHandler = (req, res) => {
     movie.release_date,
     movie.poster_path,
     movie.overview,
+    movie.comment,
   ];
   const sql = `UPDATE fav
-    SET title=$1, releaseDate=$2, posterPath=$3, overview=$4
+    SET title=$1, releaseDate=$2, posterPath=$3, overview=$4, comment=$5
     WHERE id=${id} RETURNING *;`;
 
   client
