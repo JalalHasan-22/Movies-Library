@@ -137,6 +137,7 @@ const addMovieHandler = (req, res) => {
     movie.release_date,
     movie.poster_path,
     movie.overview,
+    movie.comment,
   ];
   client
     .query(sql, values)
