@@ -131,7 +131,7 @@ const topRatedHandler = (req, res) => {
 const addMovieHandler = (req, res) => {
   const movie = req.body;
   console.log(movie);
-  const sql = `INSERT INTO fav(title, releaseDate, posterPath, overview) VALUES($1, $2, $3, $4)`;
+  const sql = `INSERT INTO fav(title, releaseDate, posterPath, overview, comment) VALUES($1, $2, $3, $4, $5)`;
   const values = [
     movie.title,
     movie.release_date,
