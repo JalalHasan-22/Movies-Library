@@ -11,17 +11,17 @@ const cors = require("cors");
 
 dotenv.config();
 app.use(cors());
+app.use(express.json());
 
 const DATABASE_URL = process.env.DATABASE_URL;
 // const client = new pg.Client(DATABASE_URL);
-// app.use(express.json());
 
 const client = new pg.Client({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
 function Movie(title, posterPath, overview) {
   this.title = title;
@@ -131,7 +131,7 @@ const topRatedHandler = (req, res) => {
 const addMovieHandler = (req, res) => {
   const movie = req.body;
   console.log(movie);
-  const sql = `INSERT INTO favMOVIES(title, releaseDate, posterPath, overview) VALUES($1, $2, $3, $4)`;
+  const sql = `INSERT INTO fav(title, releaseDate, posterPath, overview) VALUES($1, $2, $3, $4)`;
   const values = [
     movie.title,
     movie.release_date,
@@ -147,7 +147,7 @@ const addMovieHandler = (req, res) => {
 };
 
 const getMovieHandler = (req, res) => {
-  const sql = `SELECT * FROM favMovies`;
+  const sql = `SELECT * FROM fav`;
 
   client
     .query(sql)
@@ -173,7 +173,7 @@ const udpateFavHandler = (req, res) => {
     movie.poster_path,
     movie.overview,
   ];
-  const sql = `UPDATE favMovies
+  const sql = `UPDATE fav
     SET title=$1, releaseDate=$2, posterPath=$3, overview=$4
     WHERE id=${id} RETURNING *;`;
 
@@ -185,7 +185,7 @@ const udpateFavHandler = (req, res) => {
 
 const deleteMovieHandler = (req, res) => {
   const id = req.params.id;
-  const sql = `DELETE FROM favMovies WHERE id=${id};`;
+  const sql = `DELETE FROM fav WHERE id=${id};`;
 
   client
     .query(sql)
@@ -195,7 +195,7 @@ const deleteMovieHandler = (req, res) => {
 
 const getFavMovieHandler = (req, res) => {
   const id = req.params.id;
-  const sql = `SELECT * FROM favMovies WHERE id=${id}`;
+  const sql = `SELECT * FROM fav WHERE id=${id}`;
 
   client
     .query(sql)
