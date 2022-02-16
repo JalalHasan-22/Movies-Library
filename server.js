@@ -189,7 +189,7 @@ const deleteMovieHandler = (req, res) => {
 
   client
     .query(sql)
-    .then(() => res.status(203).json([]))
+    .then(() => res.status(203).json())
     .catch((error) => errorHandler(error, req, res));
 };
 
